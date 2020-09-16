@@ -1,7 +1,14 @@
 #!/bin/bash
 
+if [ $# -eq 1 ]; then
+  file="$1";
+else
+  echo "Please pass filename as first argument"
+  exit
+fi
+
 while :
 do
-  ./ex2 num.txt
-  ./ex2 num.txt&
+  ./ex2 "$file"
+  ./ex2 "$file"&
 done
