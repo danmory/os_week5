@@ -1,0 +1,25 @@
+#!/bin/bash
+
+# WITHOUT SYNC RACE CONDITION CAN OCCUR AT ANY RANDOM MOMENT, BUT USUALLY IT IS ON 4,5,6 ITERATION
+
+# checking is file passing to the program
+if [ $# -eq 1 ]; then
+  file="$1";
+else
+  echo "Please pass filename as first argument"
+  exit
+fi
+
+# if lock file exists then another thread is working now
+while ! ln "$file" "$file.lock"
+do
+	sleep 0.5
+done
+
+# getting last symbol, incrementing it and write into the file
+last=$( tail -n 1 "$file" )
+((last++))
+echo "$last" >> "$file"
+
+# removing lock file to tell other threads that they can start to work
+rm "$file.lock"

@@ -1,0 +1,7 @@
+#!/bin/bash
+
+while :
+do
+  ./ex2 num.txt
+  ./ex2 num.txt&
+done
