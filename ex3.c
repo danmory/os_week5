@@ -47,16 +47,11 @@ void* consume(void* arg){
 int main(){
     buf.capacity = N;
     buf.currentLoad = 0;
-    // 2 CONSUMERS AND 2 PRODUCERS TO GET RACE CONDITION FASTER
-    pthread_t consumer1, consumer2;
-    pthread_t producer1, producer2;
-    pthread_create(&producer1, NULL, &produce, NULL);
-    pthread_create(&consumer1, NULL, &consume, NULL);
-    pthread_create(&producer2, NULL, &produce, NULL);
-    pthread_create(&consumer2, NULL, &consume, NULL);
-    pthread_join(producer1, NULL);
-    pthread_join(producer2, NULL);
-    pthread_join(consumer1, NULL);
-    pthread_join(consumer2, NULL);
+    pthread_t consumer;
+    pthread_t producer;
+    pthread_create(&producer, NULL, &produce, NULL);
+    pthread_create(&consumer, NULL, &consume, NULL);
+    pthread_join(producer, NULL);
+    pthread_join(consumer, NULL);
     return 0;
 }
