@@ -12,7 +12,9 @@ struct Buffer{
 
 void* produce(void* arg){
     while (1){
-        while (buf.currentLoad >= buf.capacity){}
+        while (buf.currentLoad >= buf.capacity){
+            /* sleeping */
+        }
         if (buf.currentLoad >= buf.capacity){
             printf("error, trying to produce into the full buffer(RACE CONDITION) \n");
             exit(1);
@@ -29,7 +31,9 @@ void* produce(void* arg){
 
 void* consume(void* arg){
     while(1){
-        while (buf.currentLoad == 0){}
+        while (buf.currentLoad == 0){
+            /* sleeping */
+        }
         if (buf.currentLoad == 0){
             printf("error, trying to consume from the empty buffer(RACE CONDITION) \n");
             exit(1);
